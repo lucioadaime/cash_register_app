@@ -1,3 +1,6 @@
+require "json"
+
+
 class Product
   attr_reader :code, :name, :price
   # Class variable to store preset products
@@ -19,10 +22,10 @@ class Product
   end
   # Load preset products
   def self.load_preset_products
-    @preset_products = [
-      new("GR1", "Green Tea", 3.11),
-      new("SR1", "Strawberries", 5.00),
-      new("CF1", "Coffee", 11.23)
-    ]
+    file_path = File.join(__dir__, "../../data/products.json") # Construct the path to the JSON file
+    products_data = JSON.parse(File.read(file_path))
+    @preset_products = products_data.map do |data|
+      new(data["code"], data["name"], data["price"].to_f) # Ensure price is converted to float
+    end
   end
 end
