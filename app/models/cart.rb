@@ -1,5 +1,5 @@
 class Cart
-  attr_reader :products
+  attr_reader :items
 
   def initialize
     @items = {}
@@ -13,10 +13,10 @@ class Cart
     product = Product.find_by_code(product_code)
 
     if product
-      if @items[product]
-        @items[product] += 1 # Increase the quantity if product exists in cart
+      if @items[product.code] # Use product.code as the key
+        @items[product.code][:quantity] += 1 # Increase the quantity
       else
-        @items[product] = 1 # Otherwise, add the product with quantity 1
+        @items[product.code] = { product: product, quantity: 1 } # Add product with quantity
       end
     else
       puts "Product with code #{product_code} not found."
@@ -27,13 +27,12 @@ class Cart
     product_code = product_code.to_s.upcase
 
     # Find the product by its code
-    product = @items.keys.find { |p| p.code == product_code }
-
+    product = Product.find_by_code(product_code)
     if product
-      if @items[product] > 1
-        @items[product] -= 1 # Decrease quantity
+      if @items[product_code][:quantity] > 1
+        @items[product_code][:quantity] -= 1 # Decrease quantity
       else
-        @items.delete(product) # Remove product from cart
+        @items.delete(product_code) # Remove product from cart
       end
       true
     else
@@ -42,13 +41,19 @@ class Cart
   end
 
   def total_price
-    @items.sum(&:price)
+    puts "Current cart items: #{@items.inspect}"  # Debugging output
+
+    @items.sum { |product, info| info[:product].price * info[:quantity] }  # Calculate total price
   end
 
-  # Display items in the cart
+  # Display items in the cart with quantity
   def display_items
-    @items.each do |product, quantity|
-      puts "#{product.code}: #{product.name} - #{product.price} (Quantity: #{quantity})"
+    if empty?
+      puts "The cart is empty."
+    else
+      @items.each do |product, info|
+        puts "#{info[:product].code}: #{info[:product].name} - $#{info[:product].price} (Quantity: #{info[:quantity]})"
+     end
     end
   end
 end
