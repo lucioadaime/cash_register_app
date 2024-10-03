@@ -22,7 +22,7 @@ class CashRegister
       when 2
         remove_product_from_cart(cart)
       when 3
-        @view.display_message(cart)
+        show_cart(cart)
       when 4
         checkout
       when 5
@@ -77,6 +77,14 @@ class CashRegister
     end
   end
 
+  def show_cart(cart)
+    unless cart.empty?
+      puts "\nItems in your cart:"
+      cart.display_items
+    else
+      @view.display_message("Cart is empty.")
+    end
+  end
 
   def checkout(cart)
     puts "\n--- Checkout ---"
