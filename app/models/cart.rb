@@ -1,8 +1,11 @@
+require "json"
+
 class Cart
   attr_reader :items
 
   def initialize
     @items = {}
+    @discounts = load_discounts
   end
   def empty?
     @items.empty? # This returns true if the cart has no items
@@ -40,11 +43,51 @@ class Cart
     end
   end
 
-  def total_price
-    puts "Current cart items: #{@items.inspect}"  # Debugging output
-
-    @items.sum { |product, info| info[:product].price * info[:quantity] }  # Calculate total price
+  def load_discounts
+    file_path = File.expand_path("../../data/discounts.json", __dir__)
+    JSON.parse(File.read(file_path))
   end
+
+  def total_price
+    total = 0.0
+    # Decide whether a discount applies
+    @items.each do |product_code, item|
+      if @discounts[product_code]
+        # If it applies we calculate the new value
+        total += apply_discount(@item[:product], @item[:quantity], @discounts[product_code])
+      else
+        # Otherwise we calculate total regularly
+        total += @item[:product].price * @item[:quantity]
+      end
+    end
+    @items.sum { |product, info| info[:product].price * info[:quantity] }  # Calculate total price
+
+    total
+  end
+def apply_discount(product, quantity,  discount)
+  case discount["type"]
+  # We apply the appropriate discount
+  when "BOGO"
+    items_bogo = quantity/2
+    (quantity - items_bogo) * product.price
+
+  when "bulk price drop"
+    if quantity >= discount["min_quantity"]
+      quantity * discount["new_price"]
+    else
+      quantity * product.price
+    end
+  when "bulk drop by percentage"
+    if quantity >= discount["min_quantity"]
+      quantity * discount["%_price"] *  product.price
+    else
+      quantity * product.price
+    end
+  else
+    quantity * product.price
+  end
+end
+
 
   # Display items in the cart with quantity
   def display_items

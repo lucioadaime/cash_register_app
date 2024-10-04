@@ -24,7 +24,7 @@ class CashRegister
       when 3
         show_cart(cart)
       when 4
-        checkout
+        checkout(cart)
       when 5
         @view.display_message("Thank you for using the Cash Register!")
         break
@@ -88,7 +88,8 @@ class CashRegister
 
   def checkout(cart)
     puts "\n--- Checkout ---"
-    view_cart(cart)
-    puts "Thank you for shopping!"
+    show_cart(cart)
+    puts "The total is $#{cart.total_price}"
+    puts "Thank you for shopping! \n"
   end
 end
