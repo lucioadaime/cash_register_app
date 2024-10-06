@@ -54,10 +54,10 @@ class Cart
     @items.each do |product_code, item|
       if @discounts[product_code]
         # If it applies we calculate the new value
-        total += apply_discount(@item[:product], @item[:quantity], @discounts[product_code])
+        total += apply_discount(item[:product], item[:quantity], @discounts[product_code])
       else
         # Otherwise we calculate total regularly
-        total += @item[:product].price * @item[:quantity]
+        total += item[:product].price * item[:quantity]
       end
     end
     @items.sum { |product, info| info[:product].price * info[:quantity] }  # Calculate total price
@@ -97,6 +97,12 @@ end
       @items.each do |product, info|
         puts "#{info[:product].code}: #{info[:product].name} - $#{info[:product].price} (Quantity: #{info[:quantity]})"
      end
+    end
+  end
+
+  def empty_cart
+    @items.each do |product, info|
+      @items.delete(product)
     end
   end
 end

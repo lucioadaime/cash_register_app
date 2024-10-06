@@ -89,7 +89,10 @@ class CashRegister
   def checkout(cart)
     puts "\n--- Checkout ---"
     show_cart(cart)
-    puts "The total is $#{cart.total_price}"
-    puts "Thank you for shopping! \n"
+    unless cart.empty?
+      puts "The total is $#{cart.total_price}"
+      cart.empty_cart
+      puts "Thank you for shopping! \n"
+    end
   end
 end
