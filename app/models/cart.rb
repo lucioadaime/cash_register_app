@@ -55,6 +55,7 @@ class Cart
       if @discounts[product_code]
         # If it applies we calculate the new value
         total += apply_discount(item[:product], item[:quantity], @discounts[product_code])
+        puts "Discount Applied!"
       else
         # Otherwise we calculate total regularly
         total += item[:product].price * item[:quantity]
@@ -79,7 +80,7 @@ def apply_discount(product, quantity,  discount)
     end
   when "bulk drop by percentage"
     if quantity >= discount["min_quantity"]
-      quantity * discount["%_price"] *  product.price
+      (quantity * discount["%_price"] *  product.price * 100).ceil/100.0 # Rounding up the number to two decimal digits
     else
       quantity * product.price
     end

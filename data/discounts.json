@@ -17,6 +17,6 @@
       "type": "bulk drop by percentage",
       "description": "Buy 3 or more coffee and price pero coffee drops to 0.66x",
       "min_quantity": 3,
-      "%_price": 0.66
+      "%_price": 0.6666
     }
   }
