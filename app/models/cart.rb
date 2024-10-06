@@ -55,7 +55,7 @@ class Cart
       if @discounts[product_code]
         # If it applies we calculate the new value
         total += apply_discount(item[:product], item[:quantity], @discounts[product_code])
-        puts "Discount Applied!"
+        # puts "Discount Applied!"
       else
         # Otherwise we calculate total regularly
         total += item[:product].price * item[:quantity]
