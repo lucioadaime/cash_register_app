@@ -1,0 +1,22 @@
+{
+    "GR1": {
+      "name": "Green Tea",
+      "type": "BOGO",  
+      "description": "Buy one get one free on Green Tea",
+      "min_quantity": 2
+    },
+    "SR1": {
+      "name": "Strawberries",
+      "type": "bulk price drop",
+      "description": "Buy 3 or more strawberries and price pero strawberry drops to 4.50",
+      "min_quantity": 3,
+      "new_price": 4.50
+    },
+    "CF1": {
+      "name": "Coffee",
+      "type": "bulk drop by percentage",
+      "description": "Buy 3 or more coffee and price per coffee drops to 0.66x",
+      "min_quantity": 3,
+      "%_price": 0.6666
+    }
+  }
