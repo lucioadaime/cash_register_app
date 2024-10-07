@@ -6,6 +6,7 @@ class CashRegister
   def initialize(view)
     @cart = Cart.new
     @view = view
+    puts "------------- \n Welcome to the Cash Register App \n-------------"
   end
 
   def start
@@ -37,7 +38,6 @@ class CashRegister
   private
 
   def add_product_to_cart(cart)
-    puts "\n Available Products:"
     cli_view = CLIView.new
     products = Product.preset_products
     cli_view.display_products(products)
@@ -80,7 +80,9 @@ class CashRegister
   def show_cart(cart)
     unless cart.empty?
       puts "\nItems in your cart:"
-      cart.display_items
+      cart.items.each do |product, info|
+        puts "#{info[:product].code}: #{info[:product].name} - €#{info[:product].price} (Quantity: #{info[:quantity]})"
+     end
     else
       @view.display_message("Cart is empty.")
     end
@@ -90,7 +92,7 @@ class CashRegister
     puts "\n--- Checkout ---"
     show_cart(cart)
     unless cart.empty?
-      puts "The total is $#{cart.total_price}"
+      puts "The total is €#{cart.total_price}"
       cart.empty_cart
       puts "Thank you for shopping! \n"
     end

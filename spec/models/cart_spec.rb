@@ -60,7 +60,7 @@ RSpec.describe Cart do
       cart.add_product(strawberries.code)
 
       expect { cart.display_items }.to output(
-        "GR1: Green Tea - $3.11 (Quantity: 2)\nSR1: Strawberries - $5.0 (Quantity: 1)\n"
+        "GR1: Green Tea - €3.11 (Quantity: 2)\nSR1: Strawberries - €5.0 (Quantity: 1)\n"
       ).to_stdout
     end
 
@@ -72,49 +72,49 @@ RSpec.describe Cart do
   # Test total price at different points using the discounts and an extra item in total
   describe 'apply all discounts' do
     it 'GT1 SR1 SR1' do
-      cart.add_product(green_tea.code) # $3.11
+      cart.add_product(green_tea.code) # €3.11
       cart.add_product(strawberries.code)
       cart.add_product(strawberries.code)
       # Total = 13.11
       expect(cart.total_price).to eq(13.11)
     end
     it 'GT1 SR1 SR1 SR1' do
-      cart.add_product(green_tea.code) # $3.11
+      cart.add_product(green_tea.code) # €3.11
       cart.add_product(strawberries.code)
       cart.add_product(strawberries.code)
-      cart.add_product(strawberries.code) # $13.5
+      cart.add_product(strawberries.code) # €13.5
       # Total = 16.61
       expect(cart.total_price).to eq(16.61)
     end
     it 'GT1 SR1 SR1 SR1 CF1' do
-      cart.add_product(green_tea.code) # $3.11
+      cart.add_product(green_tea.code) # €3.11
       cart.add_product(strawberries.code)
       cart.add_product(strawberries.code)
-      cart.add_product(strawberries.code) # $13.5
-      cart.add_product(coffee.code) # $11.23
+      cart.add_product(strawberries.code) # €13.5
+      cart.add_product(coffee.code) # €11.23
       # Total = 27.84
       expect(cart.total_price).to eq(27.84)
     end
     it 'GT1 SR1 SR1 SR1 CF1 GT1' do
-      cart.add_product(green_tea.code) # $3.11
+      cart.add_product(green_tea.code) # €3.11
       cart.add_product(strawberries.code)
       cart.add_product(strawberries.code)
-      cart.add_product(strawberries.code) # $13.5
-      cart.add_product(coffee.code) # $11.23
-      cart.add_product(green_tea.code) # $0 due to BOGO
+      cart.add_product(strawberries.code) # €13.5
+      cart.add_product(coffee.code) # €11.23
+      cart.add_product(green_tea.code) # €0 due to BOGO
       # Total = 27.84
       expect(cart.total_price).to eq(27.84)
     end
     it 'GT1 SR1 SR1 SR1 CF1 GT1 CF1 CF1 SR1' do
-      cart.add_product(green_tea.code) # $3.11
+      cart.add_product(green_tea.code) # €3.11
       cart.add_product(strawberries.code)
       cart.add_product(strawberries.code)
-      cart.add_product(strawberries.code) # $13.5
-      cart.add_product(coffee.code) # $11.23
-      cart.add_product(green_tea.code) # $0 due to BOGO
+      cart.add_product(strawberries.code) # €13.5
+      cart.add_product(coffee.code) # €11.23
+      cart.add_product(green_tea.code) # €0 due to BOGO
       cart.add_product(coffee.code)
-      cart.add_product(coffee.code) # $11.23 due to bulk
-      cart.add_product(strawberries.code) # $4.5
+      cart.add_product(coffee.code) # €11.23 due to bulk
+      cart.add_product(strawberries.code) # €4.5
       # when checking out the total should be = 3.11 + 22.46 + 13.5 + 4.5 = 43.57
       expect(cart.total_price).to eq(43.57)
     end

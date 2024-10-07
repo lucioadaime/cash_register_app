@@ -21,8 +21,6 @@ class Cart
       else
         @items[product.code] = { product: product, quantity: 1 } # Add product with quantity
       end
-    else
-      puts "Product with code #{product_code} not found."
     end
   end
 
@@ -90,16 +88,6 @@ def apply_discount(product, quantity,  discount)
 end
 
 
-  # Display items in the cart with quantity
-  def display_items
-    if empty?
-      puts "The cart is empty."
-    else
-      @items.each do |product, info|
-        puts "#{info[:product].code}: #{info[:product].name} - $#{info[:product].price} (Quantity: #{info[:quantity]})"
-     end
-    end
-  end
 
   def empty_cart
     @items.each do |product, info|

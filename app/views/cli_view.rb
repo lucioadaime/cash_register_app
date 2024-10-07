@@ -10,7 +10,7 @@ class CLIView
   def display_products(products)
     puts "\nAvailable Products:"
     products.each_with_index do |product, index|
-      puts "#{index + 1}. #{product.code}: #{product.name} - $#{'%.2f' % product.price}"
+      puts "#{index + 1}. #{product.code}: #{product.name} - €#{'%.2f' % product.price}"
     end
   end
 
