@@ -57,8 +57,7 @@ class CashRegister
 
   def remove_product_from_cart(cart)
     unless cart.empty?
-      @view.display_message ( "\nItems in your cart:")
-      cart.display_items
+      show_cart(cart)
       @view.display_message ( "Enter the code of the product you wish to remove:")
       input = gets.chomp.strip # Ensure input is captured correctly and whitespace is removed
 
