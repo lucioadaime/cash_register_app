@@ -42,24 +42,24 @@ class CashRegister
     products = Product.preset_products
     cli_view.display_products(products)
 
-    puts "Enter product code to add to cart:"
+    @view.display_message ( "Enter product code to add to cart:")
     input = gets.chomp.strip
 
     product = Product.find_by_code(input)
 
     if product
       cart.add_product(product.code)
-      puts "#{product.name} added to cart."
+      @view.display_message ( "#{product.name} added to cart.")
     else
-      puts "Product not found. Please try again."
+      @view.display_message ("Product not found. Please try again.")
     end
   end
 
   def remove_product_from_cart(cart)
     unless cart.empty?
-      puts "\nItems in your cart:"
+      @view.display_message ( "\nItems in your cart:")
       cart.display_items
-      puts "Enter the code of the product you wish to remove:"
+      @view.display_message ( "Enter the code of the product you wish to remove:")
       input = gets.chomp.strip # Ensure input is captured correctly and whitespace is removed
 
       if product = Product.find_by_code(input)
@@ -79,9 +79,9 @@ class CashRegister
 
   def show_cart(cart)
     unless cart.empty?
-      puts "\nItems in your cart:"
+      @view.display_message ( "\nItems in your cart:")
       cart.items.each do |product, info|
-        puts "#{info[:product].code}: #{info[:product].name} - €#{info[:product].price} (Quantity: #{info[:quantity]})"
+        @view.display_message ( "#{info[:product].code}: #{info[:product].name} - €#{info[:product].price} (Quantity: #{info[:quantity]})")
      end
     else
       @view.display_message("Cart is empty.")
@@ -89,12 +89,12 @@ class CashRegister
   end
 
   def checkout(cart)
-    puts "\n--- Checkout ---"
+    @view.display_message ( "\n--- Checkout ---")
     show_cart(cart)
     unless cart.empty?
-      puts "The total is €#{cart.total_price}"
+      @view.display_message ( "The total is €#{cart.total_price}")
       cart.empty_cart
-      puts "Thank you for shopping! \n"
+      @view.display_message ( "Thank you for shopping! \n")
     end
   end
 end
