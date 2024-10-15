@@ -63,7 +63,7 @@ class CashRegister
 
       if product = Product.find_by_code(input)
 
-        if cart.remove_product(product.code) # Assuming remove_product takes a Product object
+        if cart.remove_product(product.code) # remove_product takes a Product code and returns false if not present in cart
           @view.display_message("#{product.name} has been removed from your cart.")
         else
           @view.display_message("Product not found in the cart.")

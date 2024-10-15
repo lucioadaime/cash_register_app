@@ -29,13 +29,13 @@ class Cart
 
     # Find the product by its code
     product = Product.find_by_code(product_code)
-    if product
-      if @items[product_code][:quantity] > 1
-        @items[product_code][:quantity] -= 1 # Decrease quantity
-      else
-        @items.delete(product_code) # Remove product from cart
-      end
-      true
+    if product && @items[product_code] # product code exists and product is in cart
+        if @items[product_code][:quantity] > 1
+          @items[product_code][:quantity] -= 1 # Decrease quantity
+        else
+          @items.delete(product_code) # Remove product from cart
+        end
+        true
     else
       false
     end

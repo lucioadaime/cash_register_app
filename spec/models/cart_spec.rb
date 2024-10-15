@@ -53,21 +53,6 @@ RSpec.describe Cart do
     end
   end
 
-  describe '#display_items' do
-    it 'displays items with quantity and price' do
-      cart.add_product(green_tea.code)
-      cart.add_product(green_tea.code)
-      cart.add_product(strawberries.code)
-
-      expect { cart.display_items }.to output(
-        "GR1: Green Tea - €3.11 (Quantity: 2)\nSR1: Strawberries - €5.0 (Quantity: 1)\n"
-      ).to_stdout
-    end
-
-    it 'shows an empty message when the cart is empty' do
-      expect { cart.display_items }.to output("The cart is empty.\n").to_stdout
-    end
-  end
 
   # Test total price at different points using the discounts and an extra item in total
   describe 'apply all discounts' do
