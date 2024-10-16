@@ -337,7 +337,7 @@ DEPENDENCIES
   rails (~> 7.2.1)
   rspec
   rspec-rails
-  rubocop-rails-omakase
+  rubocop-rails-omakase (~> 1.0)
   selenium-webdriver
   sprockets-rails
   sqlite3 (>= 1.4)
