@@ -1,6 +1,7 @@
 require 'rspec'
 require_relative '../../app/models/cart'
 require_relative '../../app/models/product'
+require_relative '../../app/models/discount_manager'
 
 RSpec.describe Cart do
   let(:green_tea) { Product.new('GR1', 'Green Tea', 3.11) }
@@ -8,7 +9,6 @@ RSpec.describe Cart do
   let(:coffee) { Product.new('CF1', 'Coffee', 11.23) }
   let(:cart) { Cart.new }
   products = Product.preset_products  # Ensure this returns an array
-
 
   describe '#add_product' do
     it 'adds a product to the cart with correct quantity' do

@@ -1,11 +1,11 @@
 require "json"
-
+require_relative "discount_manager"
 class Cart
   attr_reader :items
 
-  def initialize
+  def initialize(discount_manager = DiscountManager.new)
     @items = {}
-    @discounts = load_discounts
+    @discount_manager = discount_manager
   end
   def empty?
     @items.empty? # This returns true if the cart has no items
