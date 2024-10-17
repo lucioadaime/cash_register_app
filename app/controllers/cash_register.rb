@@ -10,12 +10,11 @@ class CashRegister
   end
 
   def start
-    cli_view = CLIView.new
     products = Product.preset_products  # Ensure this returns an array
     cart = Cart.new
     loop do
-      cli_view.display_menu
-      choice = cli_view.get_choice
+      @view.display_menu
+      choice = @view.get_choice
 
       case choice
       when 1
@@ -27,10 +26,10 @@ class CashRegister
       when 4
         checkout(cart)
       when 5
-        cli_view.display_message("Thank you for using the Cash Register!")
+        @view.display_message("Thank you for using the Cash Register!")
         break
       else
-        cli_view.display_message("Invalid choice. Please try again.")
+        @view.display_message("Invalid choice. Please try again.")
       end
     end
   end

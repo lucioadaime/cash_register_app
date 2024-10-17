@@ -3,6 +3,7 @@ require 'rspec'
 require_relative '../../app/controllers/cash_register'
 require_relative '../../app/models/cart'
 require_relative '../../app/models/product'
+require_relative '../../app/models/discount_manager'
 require_relative '../../app/views/cli_view'
 
 RSpec.describe CashRegister do
@@ -21,18 +22,20 @@ RSpec.describe CashRegister do
     end
   end
 
-  # we simulate exiting
   describe '#start' do
-    it 'displays the menu and responds to user choices' do
+    it 'displays the menu and responds to user exit choice' do
       allow(view).to receive(:display_menu)
-      allow(view).to receive(:get_choice).and_return(5)  # simulate exit
+      allow(view).to receive(:get_choice).and_return(5)  # Simulate user choosing 5 to exit
+
       expect(view).to receive(:display_menu)
       expect(view).to receive(:get_choice).and_return(5)
       expect(view).to receive(:display_message).with("Thank you for using the Cash Register!")
 
-      cash_register.start
+      expect(cash_register.start).to be_nil  # Ensure the method returns after exit
     end
   end
+
+
 
   # we simulate adding products
   describe '#add_product_to_cart' do
